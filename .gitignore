@@ -1,7 +1,0 @@
-doxygen_sqlite3.db
-bin/
-build/
-html/
-latex/
-docs.config
-~*
