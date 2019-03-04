@@ -7,7 +7,10 @@
         } 
 
     void Stopwatch::_stop(){
+            if (_status == RUNNING)
+            {
             time_duration = seconds_type(high_resolution_clock::now() - start_time);
+            }       
         }
 
     double Stopwatch::seconds () {

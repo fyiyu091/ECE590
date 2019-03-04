@@ -9,7 +9,8 @@ typedef std::chrono::duration<double,std::ratio<1,1>> seconds_type;
 
 class Stopwatch : public Process {
       public:
-      Stopwatch() : Process("Stopwatch") {}
+      typedef enum {STOPPED, RUNNING} status_type;
+      Stopwatch() : Process("Stopwatch") {_status = STOPPED;}
       // The below functions are the standard functions of process
       // In the init, the stopwatch watch for the event
       void init() {
@@ -24,8 +25,12 @@ class Stopwatch : public Process {
             });
         }
       void start() {
+            if (_status == STOPPED)
+            {
             start_time = high_resolution_clock::now();
             time_duration = seconds_type(0);
+            _status = RUNNING;
+            }
         }
       void update() {}
       void stop() {}
@@ -39,6 +44,8 @@ class Stopwatch : public Process {
       // The declaration of the variable
       high_resolution_clock::time_point start_time;
       std::chrono::duration<double> time_duration;
+      status_type _status;
+      
 };
 
 class StopWatchUser : public Process {
