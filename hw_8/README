@@ -1,0 +1,53 @@
+
+# Compilation
+make
+
+# how to run test?
+
+    After successfully compiling the code, you can find all three executable files under test/bin folder:
+    test/bin/temperature_server  --> temperature server (Server)
+    test/bin/p1_test             --> problem 1 unit test example (Client)
+    test/bin/p2_test             --> problem 2 unit test example (Client)
+
+    Then, we need to create two containers and connect them with each other to simulate a small network environment.
+    Server will be ran in one container and the other container is for Client(either p1_test or p2_test).
+
+    * To start the Server:
+      cd hw_8_starter
+      docker run --name ECEP590-server -v $PWD:/source -it klavins/ecep520:cppenv-http bash
+      ./test/bin/temperature_server
+
+    * To start the Client: (Open another terminal)
+      cd hw_8_starter
+      docker run  --name client --link ECEP590-server -v $PWD:/source -it klavins/ecep520:cppenv-http bash
+      ./test/bin/p1_test (or ./test/p2_test)
+
+    Don't forget to delete containers once you finish.
+      docker container stop $(docker container ls -aq)
+      docker system prune
+
+# Using script for unit test:
+
+    I also wrote a script: "test.sh" which can automatically complete the entire unit test process
+    (from create two containers, compile the codes, run the tests and delete the container).
+    However, I would suggest you to use this script after you finish both problems. 
+    It's better for you to start with individual test with the instructions in the above session.
+    (start from problem 1 then problem 2).
+
+
+# Other useful commands
+
+    * check client can reach server
+      ping ECEP590-server
+
+    * Example POST request to server
+      curl -d '{ "x": 123, "y": 234, "temperature": 41.2 }' -X POST ECEP590-server:80/save
+
+    * Example GET request to server
+    curl ECEP590-server:80/find/1
+
+    * Stop all containers
+      docker container stop $(docker container ls -aq)
+
+    * Delete Stopped containers
+      docker system prune
