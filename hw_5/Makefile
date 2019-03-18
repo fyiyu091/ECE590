@@ -14,7 +14,7 @@ SRCEXT      := cc
 
 #Flags, Libraries and Includes
 CFLAGS      := -fsanitize=address -ggdb
-LIB         := -lgtest -lpthread -lasan
+LIB         := -lgtest -lpthread # -lasan
 INC         := -I$(INCDIR)
 INCDEP      := -I$(INCDIR)
 
@@ -25,7 +25,7 @@ SOURCES     := $(wildcard *.cc)
 OBJECTS     := $(patsubst %.cc, $(BUILDDIR)/%.o, $(notdir $(SOURCES)))
 
 #Defauilt Make
-all: directories $(TARGETDIR)/$(TARGET) 
+all: directories $(TARGETDIR)/$(TARGET)
 
 #Remake
 remake: cleaner all

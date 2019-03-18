@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <arbitrary_array.h>
 
 /* private functions *********************************************************/
 
@@ -47,7 +48,7 @@ static void extend_buffer ( DynamicArray * da ) {
 
 /* public functions **********************************************************/
 static int num_da = 0;
-static DynamicArray ** da_ptr = (DynamicArray **) calloc (100, sizeof(DynamicArray));
+static ArbitraryArray * da_ptr = ArbitraryArray_new(sizeof(DynamicArray *));
 static int da_ptr_index = 0;
 
 DynamicArray * DynamicArray_new(void) {
@@ -65,6 +66,15 @@ DynamicArray * DynamicArray_new(void) {
 void DynamicArray_destroy(DynamicArray * da) {
     free(da->buffer);
     da->buffer = NULL;
+    //Need to remove the da in the da_ptr
+    for (int i = 0; i < da_ptr_index; i++)
+    {
+        if (da_ptr[i] == da)
+        {
+            int the_index = i;
+        }
+    }
+    
     num_da--;
     da_ptr_index = 0;
     return;

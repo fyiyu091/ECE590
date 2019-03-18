@@ -1,0 +1,2 @@
+OCI runtime exec failed: exec failed: container_linux.go:344: starting container process caused "exec: \"./test/bin/temperature_server\": stat ./test/bin/temperature_server: no such file or directory": unknown
+OCI runtime exec failed: exec failed: container_linux.go:344: starting container process caused "exec: \"./test/bin/temperature_server\": stat ./test/bin/temperature_server: no such file or directory": unknown
